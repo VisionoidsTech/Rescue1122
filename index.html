@@ -1,0 +1,253 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+   crossorigin=""/>
+   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+   integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+   crossorigin=""></script>
+   <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+<style>
+*{
+	padding: 0px;
+	margin: 0px;
+}
+#mapid{ height: 100%; width:100%;}
+
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    margin-right: -250px;
+}
+
+#sidebar.active {
+    margin-right: 0px;
+}
+
+#content{
+   flex: 1;
+}
+.floating-btn{
+  position: absolute;
+  background-color: white;
+  z-index: 100000;
+  border-radius: 0px 100px 100px 0px;
+  opacity: 0.5;
+}
+
+.floating-btn:hover{
+  opacity:1;
+}
+
+.leaflet-popup-close-button
+{
+    display: none;
+}
+
+.leaflet-popup
+{
+  left: -32px !important;
+}
+
+.leaflet-popup-content
+{
+  width: 23px !important;
+}
+
+/*
+    ADDITIONAL DEMO STYLE, NOT IMPORTANT TO MAKE THINGS WORK BUT TO MAKE IT A BIT NICER :)
+*/
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar {
+    /* don't forget to add all the previously mentioned styles here too */
+    background: #7386D5;
+    color: #fff;
+    transition: all 0.3s;
+    flex-grow: 1
+}
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #6d7fcc;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+#sidebar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+}
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+
+.sidebar-toggle{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: center; */
+  flex: 1;
+  height: 100%;
+  position: absolute;
+}
+   </style>
+
+</head>
+<body>
+  <div class="wrapper">
+
+    <nav id="sidebar">
+      <div class="sidebar-header">
+           <h3>Vehicles in Emergency</h3>
+       </div>
+
+       <div class="sidebar-header">
+            <h3>Idle Vehicles</h3>
+        </div>
+
+
+    </nav>
+    <div id="content">
+      <div class="sidebar-toggle">
+        <button type="button" id="sidebarCollapse" class="btn floating-btn">
+            <i class="fas fa-chevron-right" style="padding-top:10px; padding-bottom:10px"></i>
+        </button>
+      </div>
+
+
+      <div id="mapid"></div>
+    </div>
+  </div>
+	<script>
+  $(document).ready(function () {
+
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        if($('#sidebar').hasClass('active'))
+        {
+          alert("fuck");
+        }
+    });
+
+});
+	var mymap = L.map('mapid').setView([31.4504, 73.1350], 13);
+
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFsaWt1bWVyIiwiYSI6ImNqdGE4bHNicjAzeW00YXFpNDF5MmtmdXMifQ._PpurAceSZCjTiwcYa_dzg', {
+	   attribution: 'Rescue 1122 &copy; Developed by <a href="https://www.visionoids.com">Visionoids</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+	   maxZoom: 18,
+	   id: 'mapbox.streets',
+	   accessToken: 'your.mapbox.access.token'
+	}).addTo(mymap);
+	function addMarker(lon, lat, plate)
+	{
+	  return L.marker([lon, lat]).addTo(mymap).bindPopup(plate, {closeOnClick: false, autoClose: false}).openPopup();
+	}
+	function moveMarker(mar, lat, lon)
+	{
+		mar.setLatLng(new L.LatLng(lat, lon)).update();
+	}
+	 </script>
+	 <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+
+
+	 <script>
+	var config = {
+	  apiKey: "AIzaSyCGefoR_04QadkVlg4_5WPYJwP8O01wvGI",
+	  authDomain: "tracker-d669a.firebaseapp.com",
+	  databaseURL: "https://tracker-d669a.firebaseio.com",
+	  projectId: "tracker-d669a",
+	  storageBucket: "tracker-d669a.appspot.com",
+	  messagingSenderId: "846903125766"
+	};
+	firebase.initializeApp(config);
+	</script>
+
+	<script>
+		var ref = firebase.database().ref();
+		var markers = new Array();
+
+		ref.once("value", function(snapshot) {
+			var snap = snapshot.val();
+			var obj = snap['Ambulances'];
+			var ambulances = Object.keys(obj).map(function(key) {
+				return [Number(key), obj[key]];
+			});
+		   for(var i = 0; i < ambulances.length; i++)
+		   {
+			markers.push(addMarker(ambulances[i][1]['latitude'].toFixed(4), ambulances[i][1]['longitude'].toFixed(4), ambulances[i][1]['licenseno']));
+		   }
+		}, function (error) {
+		   console.log("Error: " + error.code);
+		});
+
+		ref.on("value", function(snapshot) {
+			var snap = snapshot.val();
+			var obj = snap['Ambulances'];
+			var ambulances = Object.keys(obj).map(function(key) {
+				return [Number(key), obj[key]];
+			});
+		   for(var i = 0; i < ambulances.length; i++)
+		   {
+			moveMarker(markers[i], ambulances[i][1]['latitude'].toFixed(4), ambulances[i][1]['longitude'].toFixed(4));
+		   }
+		}, function (error) {
+		   console.log("Error: " + error.code);
+		});
+
+	</script>
+</body>
+</html>
