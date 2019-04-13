@@ -1,18 +1,18 @@
 <html>
 <head>
+<meta name=viewport content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
    crossorigin=""/>
-   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
    <!-- Make sure you put this AFTER Leaflet's CSS -->
  <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
    integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
    crossorigin=""></script>
-   <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 <style>
@@ -32,6 +32,7 @@
     min-width: 250px;
     max-width: 250px;
     margin-right: -250px;
+
 }
 
 #sidebar.active {
@@ -95,45 +96,12 @@ a, a:hover, a:focus {
 
 #sidebar {
     /* don't forget to add all the previously mentioned styles here too */
-    background: #7386D5;
-    color: #fff;
+    background: #FFFFFF;
     transition: all 0.3s;
-    flex-grow: 1
-}
-#sidebar .sidebar-header {
-    padding: 20px;
-    background: #6d7fcc;
+    flex-grow: 1;
+	 box-shadow: inset -7px 0 9px -7px rgba(0,0,0,0.4);
 }
 
-#sidebar ul.components {
-    padding: 20px 0;
-    border-bottom: 1px solid #47748b;
-}
-
-#sidebar ul p {
-    color: #fff;
-    padding: 10px;
-}
-
-#sidebar ul li a {
-    padding: 10px;
-    font-size: 1.1em;
-    display: block;
-}
-#sidebar ul li a:hover {
-    color: #7386D5;
-    background: #fff;
-}
-
-#sidebar ul li.active > a, a[aria-expanded="true"] {
-    color: #fff;
-    background: #6d7fcc;
-}
-ul ul a {
-    font-size: 0.9em !important;
-    padding-left: 30px !important;
-    background: #6d7fcc;
-}
 
 .sidebar-toggle{
   display: flex;
@@ -144,22 +112,68 @@ ul ul a {
   height: 100%;
   position: absolute;
 }
+
+.card-body{
+	padding: 7px !important;
+}
    </style>
 
 </head>
 <body>
   <div class="wrapper">
+  	
+	
+	
 
-    <nav id="sidebar">
-      <div class="sidebar-header">
-           <h3>Vehicles in Emergency</h3>
-       </div>
+    <nav id="sidebar" class="">
+    
+    <div class="row">
+    	<div class="col col-12">
+        	<div class="accordion" id="fleet">
+  				<div class="card">
+    				<div class="card-header" id="inemergency">
+      					<h5 class="mb-0">
+        					<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseinemergency" aria-expanded="true" aria-controls="collapseinemergency">In Emergency</button>
+      					</h5>
+    				</div>
+    				<div id="collapseinemergency" class="collapse show" aria-labelledby="inemergency" data-parent="#fleet">
+      					<div class="card-body">kasdfk
+      					</div>
+    				</div>
+  				</div>
+  				<div class="card">
+    				<div class="card-header" id="vacant">
+      				<h5 class="mb-0">
+        				<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsevacant" aria-expanded="false" aria-controls="collapsevacant">Vacant</button>
+      				</h5>
+                    </div>
+                    <div id="collapsevacant" class="collapse" aria-labelledby="vacant" data-parent="#fleet">
+                        <div class="card-body">
+                        	<div class="card" >
+                                 <div class="card-body" >
+                                    This is some text within a card body.
+                                 </div>
+							</div>
+                            
+                            <div class="card" >
+                                 <div class="card-body" >
+                                    This is some text within a card body.
+                                 </div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+  			</div>
+        </div>
+    </div>
+    
+    
+    	
+    
 
-       <div class="sidebar-header">
+        <div class="sidebar-header">
             <h3>Idle Vehicles</h3>
         </div>
-
-
     </nav>
     <div id="content">
       <div class="sidebar-toggle">
@@ -179,7 +193,7 @@ ul ul a {
         $('#sidebar').toggleClass('active');
         if($('#sidebar').hasClass('active'))
         {
-          alert("fuck");
+         // alert("fuck");
         }
     });
 
@@ -196,7 +210,7 @@ ul ul a {
 	{
 	  return L.marker([lon, lat]).addTo(mymap).bindPopup(plate, {closeOnClick: false, autoClose: false}).openPopup();
 	}
-	function moveMarker(mar, lat, lon)
+	function fuckmoveMarker(mar, lat, lon)
 	{
 		mar.setLatLng(new L.LatLng(lat, lon)).update();
 	}
@@ -249,5 +263,8 @@ ul ul a {
 		});
 
 	</script>
+
+
+
 </body>
 </html>
