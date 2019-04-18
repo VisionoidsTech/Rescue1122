@@ -286,6 +286,7 @@ a, a:hover, a:focus {
 		ref.on("value", function(snapshot) {
 			var snap = snapshot.val();
 			var obj = snap['Ambulances'];
+			console.log(obj);
 			var ambulances = Object.keys(obj).map(function(key) {
 				return [Number(key), obj[key]];
 			});
