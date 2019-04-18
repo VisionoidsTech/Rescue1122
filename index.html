@@ -38,13 +38,36 @@
         					<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseinemergency" aria-expanded="true" aria-controls="collapseinemergency">In Emergency</button>
       					</h5>
     				</div>
+
     				<div id="collapseinemergency" class="collapse show" aria-labelledby="inemergency" data-parent="#fleet">
-      					<div class="card-body">
-                  <div class="card" >
-                         <div class="card-body" >
-                            This is some text within a card body.
+
+                    	<div class="card-body">
+                        <div class="row">
+                         <div class="col-4">
+                        	<img src="../../../xampp/htdocs/1122/ambu.png" />
                          </div>
-                  </div>
+                          <div class="col-4">
+                              fa-11
+                          </div>
+                           <div class="col-4s">
+                           		00:00
+                           </div>
+      					</div>
+    					</div>
+                    </div>
+                    <div id="collapseinemergency" class="collapse show" aria-labelledby="inemergency" data-parent="#fleet">
+      					<div class="card-body">
+                        <div class="row">
+                         <div class="col-4">
+                        	<img src="../../../xampp/htdocs/1122/ambu.png" />
+                         </div>
+                          <div class="col-4">
+                              fa-11
+                          </div>
+                           <div class="col-4s">
+                           		00:00
+                           </div>
+      					</div>
       					</div>
     				</div>
   				</div>
@@ -55,13 +78,24 @@
       				</h5>
                     </div>
                     <div id="collapsevacant" class="collapse" aria-labelledby="vacant" data-parent="#fleet">
-                        <div class="card-body" id="blabla">
-                          <div class="panel panel-default">
-                          <div class="panel-body">
-                            Basic panel example
-                          </div>
-                        </div>
+                        <div class="card-body">
+                        	<div class="card" >
+                                 <div class="card-body" >
+                                   Ambulance
+                                 </div>
+							</div>
 
+                            <div class="card" >
+                                 <div class="card-body" >
+                                   Motor bike
+                                 </div>
+							</div>
+
+                            <div class="card" >
+                                 <div class="card-body" >
+                                   Fire bargade
+                                 </div>
+							</div>
 
                         </div>
                     </div>
@@ -104,6 +138,53 @@
 	 <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
    <script src="script.js" type="text/javascript"></script>
 
+
+	 <script>
+	var config = {
+	  apiKey: "AIzaSyCGefoR_04QadkVlg4_5WPYJwP8O01wvGI",
+	  authDomain: "tracker-d669a.firebaseapp.com",
+	  databaseURL: "https://tracker-d669a.firebaseio.com",
+	  projectId: "tracker-d669a",
+	  storageBucket: "tracker-d669a.appspot.com",
+	  messagingSenderId: "846903125766"
+	};
+	firebase.initializeApp(config);
+	</script>
+
+	<script>
+		var ref = firebase.database().ref();
+		var markers = new Array();
+
+		ref.once("value", function(snapshot) {
+			var snap = snapshot.val();
+			var obj = snap['Ambulances'];
+			var ambulances = Object.keys(obj).map(function(key) {
+				return [Number(key), obj[key]];
+			});
+		   for(var i = 0; i < ambulances.length; i++)
+		   {
+			markers.push(addMarker(ambulances[i][1]['latitude'].toFixed(4), ambulances[i][1]['longitude'].toFixed(4), ambulances[i][1]['licenseno']));
+		   }
+		}, function (error) {
+		   console.log("Error: " + error.code);
+		});
+
+		ref.on("value", function(snapshot) {
+			var snap = snapshot.val();
+			var obj = snap['Ambulances'];
+			console.log(obj);
+			var ambulances = Object.keys(obj).map(function(key) {
+				return [Number(key), obj[key]];
+			});
+		   for(var i = 0; i < ambulances.length; i++)
+		   {
+			moveMarker(markers[i], ambulances[i][1]['latitude'].toFixed(4), ambulances[i][1]['longitude'].toFixed(4));
+		   }
+		}, function (error) {
+		   console.log("Error: " + error.code);
+		});
+
+	</script>
 
 
 
